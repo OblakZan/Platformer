@@ -45,7 +45,7 @@ public class MovementManager : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D obj)
     {
-        if(obj.gameObject.tag == "ground")
+        if (obj.gameObject.tag == "ground" || obj.gameObject.tag == "CrumblePlatform")
         {
             onGround = true;
         }
