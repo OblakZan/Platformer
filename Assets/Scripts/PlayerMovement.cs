@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -22,7 +23,12 @@ public class PlayerMovement : MonoBehaviour
     public AudioClip clipFinish;
     public AudioClip clipDeath;
     public AudioSource source;
-        
+
+
+    private float secondsCount;
+    private int minuteCount;
+    public TextMeshPro timerText;
+    private bool timerStart = false;
 
     private void Start()
     {
@@ -46,6 +52,11 @@ public class PlayerMovement : MonoBehaviour
         {
             crouch = false;
         }
+
+        if (timerStart)
+        {
+            UpdateTimerUI();
+        }
     }
 
     void FixedUpdate()
@@ -66,6 +77,29 @@ public class PlayerMovement : MonoBehaviour
             source.PlayOneShot(clipDeath);
             System.Threading.Thread.Sleep(300);
             SceneManager.LoadScene("SampleScene");
+        }
+        else if (collision.gameObject.name == "Start_wall")
+        {
+            timerStart = true;
+            UpdateTimerUI();
+            source.PlayOneShot(clipStart);
+        }
+        else if (collision.gameObject.name == "Finish_wall" && timerStart == true)
+        {
+            source.PlayOneShot(clipFinish);
+            timerStart = false;
+        }
+    }
+
+
+    public void UpdateTimerUI()
+    {
+        secondsCount += Time.deltaTime;
+        timerText.text = minuteCount + "m:" + (int)secondsCount + "s";
+        if (secondsCount >= 60)
+        {
+            minuteCount++;
+            secondsCount = 0;
         }
     }
 }
