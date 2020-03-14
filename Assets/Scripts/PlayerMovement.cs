@@ -76,7 +76,7 @@ public class PlayerMovement : MonoBehaviour
         {
             source.PlayOneShot(clipDeath);
             System.Threading.Thread.Sleep(300);
-            SceneManager.LoadScene("SampleScene");
+            SceneManager.LoadScene("Level 1");
         }
         else if (collision.gameObject.name == "Start_wall")
         {
