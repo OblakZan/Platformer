@@ -125,14 +125,14 @@ public class PlayerMovement : MonoBehaviour
         if (Data.prikazZmagovalnegaCasa == false)
         {
             timerText.text = minuteCount + "m:" + (int)secondsCount + "s \n"
-                + "čas prešnje igre:" + Data.shraniMinute + "m" + (int)Data.shraniSekunde + "s \n"
+                + "Čas prejšnje igre:" + Data.shraniMinute + "m" + (int)Data.shraniSekunde + "s \n"
                 + "Poskus:" + Data.poskus;
         }
         else
         {
             timerText.text = minuteCount + "m:" + (int)secondsCount + "s \n"
-                + "čas prešnje igre:" + Data.shraniMinute + "m" + (int)Data.shraniSekunde + "s \n"
-                + "najboljsi čas:" + Data.shraniMinuteRekord + "m" + (int)Data.shraniSekundeRekord + "s \n"
+                + "Čas prejšnje igre:" + Data.shraniMinute + "m" + (int)Data.shraniSekunde + "s \n"
+                + "Najboljsi čas:" + Data.shraniMinuteRekord + "m" + (int)Data.shraniSekundeRekord + "s \n"
                 + "Poskus:" + Data.poskus;
         }
 
