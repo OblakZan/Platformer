@@ -130,7 +130,6 @@ public class PlayerMovement : MonoBehaviour
                 System.Threading.Thread.Sleep(300);
                 SceneManager.LoadScene("Menu");
             }
-            
         }
     }
 
