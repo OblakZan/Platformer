@@ -30,6 +30,17 @@ public class PlayerMovement : MonoBehaviour
     public TextMeshPro timerText;
     private bool timerStart = false;
 
+    //podatki za merjenje casa
+    public static class Data
+    {
+        public static float shraniSekunde = 0;
+        public static int shraniMinute = 0;
+        public static float shraniSekundeRekord = 59;
+        public static int shraniMinuteRekord = 60;
+        public static int poskus = 1;
+        public static bool prikazZmagovalnegaCasa = false;
+    }
+
     private void Start()
     {
         offset = transform.position - player.transform.position;
@@ -86,8 +97,23 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (collision.gameObject.name == "Finish_wall" && timerStart == true)
         {
+            Data.prikazZmagovalnegaCasa = true;
+            Data.shraniSekunde = secondsCount;
+            Data.shraniMinute = minuteCount;
+            if (Data.shraniSekundeRekord >= Data.shraniSekunde && Data.shraniMinuteRekord >= Data.shraniMinute)
+            {
+                Data.shraniMinuteRekord = Data.shraniMinute;
+                Data.shraniSekundeRekord = Data.shraniSekunde;
+            }
+            else
+            {
+                /*Data.shraniMinuteRekord = Data.shraniMinute;
+                Data.shraniSekundeRekord = Data.shraniSekunde;*/
+            }
+            Data.poskus = Data.poskus + 1;
             source.PlayOneShot(clipFinish);
             timerStart = false;
+            SceneManager.LoadScene("Level 1");
         }
     }
 
@@ -95,7 +121,21 @@ public class PlayerMovement : MonoBehaviour
     public void UpdateTimerUI()
     {
         secondsCount += Time.deltaTime;
-        timerText.text = minuteCount + "m:" + (int)secondsCount + "s";
+
+        if (Data.prikazZmagovalnegaCasa == false)
+        {
+            timerText.text = minuteCount + "m:" + (int)secondsCount + "s \n"
+                + "čas prešnje igre:" + Data.shraniMinute + "m" + (int)Data.shraniSekunde + "s \n"
+                + "Poskus:" + Data.poskus;
+        }
+        else
+        {
+            timerText.text = minuteCount + "m:" + (int)secondsCount + "s \n"
+                + "čas prešnje igre:" + Data.shraniMinute + "m" + (int)Data.shraniSekunde + "s \n"
+                + "najboljsi čas:" + Data.shraniMinuteRekord + "m" + (int)Data.shraniSekundeRekord + "s \n"
+                + "Poskus:" + Data.poskus;
+        }
+
         if (secondsCount >= 60)
         {
             minuteCount++;
