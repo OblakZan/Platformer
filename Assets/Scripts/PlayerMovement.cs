@@ -87,7 +87,14 @@ public class PlayerMovement : MonoBehaviour
         {
             source.PlayOneShot(clipDeath);
             System.Threading.Thread.Sleep(300);
-            SceneManager.LoadScene("Level 1");
+            if (SceneManager.GetActiveScene().name == "Level 1")
+            {
+                SceneManager.LoadScene("Level 1");
+            }
+            else if (SceneManager.GetActiveScene().name == "Level 2")
+            {
+                SceneManager.LoadScene("Level 2");
+            }
         }
         else if (collision.gameObject.name == "Start_wall")
         {
@@ -113,7 +120,17 @@ public class PlayerMovement : MonoBehaviour
             Data.poskus = Data.poskus + 1;
             source.PlayOneShot(clipFinish);
             timerStart = false;
-            SceneManager.LoadScene("Level 1");
+            if(SceneManager.GetActiveScene().name == "Level 1")
+            {
+                System.Threading.Thread.Sleep(300);
+                SceneManager.LoadScene("Level 2");
+            }
+            else if(SceneManager.GetActiveScene().name == "Level 2")
+            {
+                System.Threading.Thread.Sleep(300);
+                SceneManager.LoadScene("Menu");
+            }
+            
         }
     }
 
